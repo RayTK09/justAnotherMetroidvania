@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://bjqa6pp7erljk"]
+
+[ext_resource type="Texture2D" uid="uid://blsnn2qib60hc" path="res://icon.svg" id="1_nm8f5"]
+[ext_resource type="Script" uid="uid://bpo3pxtk34xqg" path="res://scripts/evil_ass_creature.gd" id="1_wfpsf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nm8f5"]
+
+[node name="evil ass creature" type="Area2D" unique_id=1039752752]
+collision_layer = 5
+collision_mask = 2
+script = ExtResource("1_wfpsf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=745237122]
+shape = SubResource("RectangleShape2D_nm8f5")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1373720253]
+scale = Vector2(0.1504315, 0.15)
+texture = ExtResource("1_nm8f5")
