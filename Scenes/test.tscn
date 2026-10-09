@@ -1,12 +1,13 @@
 [gd_scene format=3 uid="uid://k31wcbmwofcu"]
 
 [ext_resource type="Texture2D" uid="uid://blsnn2qib60hc" path="res://icon.svg" id="1_lc1oi"]
+[ext_resource type="Script" uid="uid://cb6pwgomdblug" path="res://scripts/test.gd" id="1_qc4db"]
 [ext_resource type="PackedScene" uid="uid://4s5ppdivm6rq" path="res://Scenes/player.tscn" id="2_8od7v"]
-[ext_resource type="PackedScene" uid="uid://bjqa6pp7erljk" path="res://Scenes/evil_ass_creature.tscn" id="3_qc4db"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2qw5g"]
 
 [node name="Node2D" type="Node2D" unique_id=901564363]
+script = ExtResource("1_qc4db")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=478588588]
 
@@ -18,17 +19,9 @@ shape = SubResource("RectangleShape2D_2qw5g")
 scale = Vector2(2.559999, 0.15685768)
 texture = ExtResource("1_lc1oi")
 
-[node name="evil ass creature" parent="." unique_id=1039752752 instance=ExtResource("3_qc4db")]
-position = Vector2(102, -25)
-
-[node name="evil ass creature2" parent="." unique_id=2055464836 instance=ExtResource("3_qc4db")]
-position = Vector2(53, -20)
-
 [node name="Player" parent="." unique_id=542916292 instance=ExtResource("2_8od7v")]
 position = Vector2(-24, -59)
 rotation = 3.1415927
 scale = Vector2(1, -1)
 health = 20
 speed = 300
-
-[connection signal="hit" from="Player" to="evil ass creature" method="_on_player_hit"]

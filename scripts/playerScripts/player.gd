@@ -7,6 +7,7 @@ signal hit
 @export var jumpVel = -400.0
 
 @onready var aniPlayer = $AnimationPlayer
+@onready var spriteAni = $AnimatedSprite2D
 @onready var swingHitbox = $swingBox
 
 var enemyCollision = false
@@ -38,13 +39,18 @@ func _physics_process(delta: float) -> void:
 	# Handle jump.
 	if Input.is_action_just_pressed("Jump") and is_on_floor():
 		velocity.y = jumpVel
+		spriteAni.play("jump")
 
 	#Not sure why I tried reinventing the wheel
 	var direction := Input.get_axis("Left", "Right")
 	if direction:
 		velocity.x = direction * speed
+		if is_on_floor():
+			spriteAni.play("walk")
 	else:
 		velocity.x = 0
+		if is_on_floor():
+			spriteAni.play("default")
 	move_and_slide()
 
 

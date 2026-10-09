@@ -10,10 +10,10 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if health <= 0:
-		queue_free()
+	if self.health <= 0:
+		self.queue_free()
 
 
 func _on_player_hit() -> void:
-	health -= 5
-	print(health)
+	self.health -= 5
+	print(self.health)
