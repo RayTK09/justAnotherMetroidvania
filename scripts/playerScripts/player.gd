@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 signal hit
 
-@export var health : int
+@export var health : int = 5
 @export var speed : int
 @export var jumpVel = -400.0
 
@@ -11,6 +11,7 @@ signal hit
 @onready var swingHitbox = $swingBox
 
 var enemyCollision = false
+var jumped = false
 
 func _ready() -> void:
 	pass
@@ -35,11 +36,24 @@ func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
+	
+	#coyote time
+	if !is_on_floor() and $coyoteTime.is_stopped() and !jumped:
+		$coyoteTime.start()
+	
+	if is_on_floor():
+		jumped = false
 
 	# Handle jump.
-	if Input.is_action_just_pressed("Jump") and is_on_floor():
+	if Input.is_action_just_pressed("Jump") and !jumped:
 		velocity.y = jumpVel
+		jumped = true
+	
+	if velocity.y < 0:
 		spriteAni.play("jump")
+	
+	if velocity.y > 0:
+		spriteAni.play("I'm falling!")
 
 	#Not sure why I tried reinventing the wheel
 	var direction := Input.get_axis("Left", "Right")
@@ -60,3 +74,6 @@ func _on_swing_box_area_entered(area: Area2D) -> void:
 	
 func _on_swing_box_area_exited(area: Area2D) -> void:
 	enemyCollision = false
+
+func _on_coyote_time_timeout() -> void:
+	jumped = true

@@ -25,3 +25,5 @@ rotation = 3.1415927
 scale = Vector2(1, -1)
 health = 20
 speed = 300
+
+[connection signal="hit" from="Player" to="." method="_on_player_hit"]

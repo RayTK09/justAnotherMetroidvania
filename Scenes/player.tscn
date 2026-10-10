@@ -3,12 +3,12 @@
 [ext_resource type="Script" uid="uid://dqkyi7nmtwycv" path="res://scripts/playerScripts/player.gd" id="1_onrkg"]
 [ext_resource type="Texture2D" uid="uid://blsnn2qib60hc" path="res://icon.svg" id="2_i3pqv"]
 [ext_resource type="Texture2D" uid="uid://igpcufy0t06" path="res://Sprites/playerSprites/playerCharacter.png" id="3_vgqql"]
+[ext_resource type="Texture2D" uid="uid://baievx2ps7clc" path="res://Sprites/playerSprites/playerDown.png" id="3_x3wgy"]
 [ext_resource type="Texture2D" uid="uid://b8h68s1dxflcv" path="res://Sprites/playerSprites/playerWalk-Sheet.png" id="4_fkybt"]
 [ext_resource type="Texture2D" uid="uid://dvd51mufittly" path="res://Sprites/playerSprites/playerUp.png" id="4_x3wgy"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2qw5g"]
-radius = 6.0
-height = 28.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fkybt"]
+size = Vector2(10, 24)
 
 [sub_resource type="Animation" id="Animation_cvnsp"]
 length = 0.001
@@ -147,6 +147,14 @@ region = Rect2(128, 0, 64, 128)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("3_x3wgy")
+}],
+"loop": 1,
+"name": &"I\'m falling!",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("3_vgqql")
 }],
 "loop": 1,
@@ -180,10 +188,11 @@ animations = [{
 scale = Vector2(-1, 1)
 collision_mask = 5
 script = ExtResource("1_onrkg")
+speed = 10
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1587323951]
 position = Vector2(0, 1)
-shape = SubResource("CapsuleShape2D_2qw5g")
+shape = SubResource("RectangleShape2D_fkybt")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=761787993]
 zoom = Vector2(3, 3)
@@ -205,9 +214,15 @@ scale = Vector2(0.120002136, 0.14666653)
 texture = ExtResource("2_i3pqv")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1992023396]
-scale = Vector2(0.23000078, 0.23)
+position = Vector2(-0.063039996, 0.18911758)
+scale = Vector2(0.23197077, 0.23295496)
 sprite_frames = SubResource("SpriteFrames_2qw5g")
-animation = &"jump"
+animation = &"I\'m falling!"
+
+[node name="coyoteTime" type="Timer" parent="." unique_id=1767994749]
+wait_time = 0.1
+one_shot = true
 
 [connection signal="area_entered" from="swingBox" to="." method="_on_swing_box_area_entered"]
 [connection signal="area_exited" from="swingBox" to="." method="_on_swing_box_area_exited"]
+[connection signal="timeout" from="coyoteTime" to="." method="_on_coyote_time_timeout"]

@@ -1,6 +1,6 @@
 extends Area2D
 
-var health = 20
+@export var health : int = 20
 
 
 # Called when the node enters the scene tree for the first time.
@@ -12,8 +12,3 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if self.health <= 0:
 		self.queue_free()
-
-
-func _on_player_hit() -> void:
-	self.health -= 5
-	print(self.health)

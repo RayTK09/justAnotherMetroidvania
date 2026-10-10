@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="somethingLikeHollowKnight"
-run/main_scene="uid://k31wcbmwofcu"
+run/main_scene="uid://cc0monq6pfxyr"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 
