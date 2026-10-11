@@ -73,6 +73,13 @@ Menu={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="ground and wall collision"
+2d_physics/layer_2="sword swing"
+2d_physics/layer_3="enemy hit"
+2d_physics/layer_4="player hit"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"

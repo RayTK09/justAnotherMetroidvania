@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://baievx2ps7clc" path="res://Sprites/playerSprites/playerDown.png" id="3_x3wgy"]
 [ext_resource type="Texture2D" uid="uid://b8h68s1dxflcv" path="res://Sprites/playerSprites/playerWalk-Sheet.png" id="4_fkybt"]
 [ext_resource type="Texture2D" uid="uid://dvd51mufittly" path="res://Sprites/playerSprites/playerUp.png" id="4_x3wgy"]
+[ext_resource type="Texture2D" uid="uid://bfma0rjrjamv7" path="res://Sprites/playerSprites/heart.png" id="7_3smsa"]
+[ext_resource type="Script" uid="uid://d310h2ehu6f4x" path="res://Scenes/health.gd" id="7_8erm5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fkybt"]
 size = Vector2(10, 24)
@@ -78,7 +80,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(20, 0)]
+"values": [Vector2(-20, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -90,7 +92,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false]
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_fkybt"]
@@ -106,7 +108,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-20, 0)]
+"values": [Vector2(20, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -118,7 +120,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_vgqql"]
@@ -185,9 +187,10 @@ animations = [{
 }]
 
 [node name="Player" type="CharacterBody2D" unique_id=542916292]
-scale = Vector2(-1, 1)
+collision_layer = 9
 collision_mask = 5
 script = ExtResource("1_onrkg")
+health = 4
 speed = 10
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1587323951]
@@ -217,12 +220,65 @@ texture = ExtResource("2_i3pqv")
 position = Vector2(-0.063039996, 0.18911758)
 scale = Vector2(0.23197077, 0.23295496)
 sprite_frames = SubResource("SpriteFrames_2qw5g")
-animation = &"I\'m falling!"
+frame_progress = 0.7199078
 
 [node name="coyoteTime" type="Timer" parent="." unique_id=1767994749]
 wait_time = 0.1
 one_shot = true
 
+[node name="health" type="Node2D" parent="." unique_id=971958386]
+position = Vector2(-194, -104)
+script = ExtResource("7_8erm5")
+
+[node name="heart1" type="Sprite2D" parent="health" unique_id=2005968072]
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("7_3smsa")
+
+[node name="heart2" type="Sprite2D" parent="health" unique_id=1323535453]
+position = Vector2(15, 0)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("7_3smsa")
+
+[node name="heart3" type="Sprite2D" parent="health" unique_id=29346827]
+position = Vector2(30, 0)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("7_3smsa")
+
+[node name="heart4" type="Sprite2D" parent="health" unique_id=245310284]
+position = Vector2(45, 0)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("7_3smsa")
+
+[node name="heart5" type="Sprite2D" parent="health" unique_id=596274019]
+position = Vector2(60, 0)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("7_3smsa")
+
+[node name="Button" type="Button" parent="." unique_id=965212599]
+offset_left = 110.0
+offset_top = -33.0
+offset_right = 118.0
+offset_bottom = -25.0
+text = "heal"
+
+[node name="Button2" type="Button" parent="." unique_id=1388335411]
+offset_left = 73.0
+offset_top = -34.0
+offset_right = 81.0
+offset_bottom = -26.0
+text = "hit"
+
+[node name="disableMovement" type="Timer" parent="." unique_id=427838985]
+wait_time = 0.5
+
+[node name="invinciblityFrames" type="Timer" parent="." unique_id=1746173709]
+
+[connection signal="heal" from="." to="health" method="_on_player_heal"]
+[connection signal="hit" from="." to="health" method="_on_player_hit"]
 [connection signal="area_entered" from="swingBox" to="." method="_on_swing_box_area_entered"]
 [connection signal="area_exited" from="swingBox" to="." method="_on_swing_box_area_exited"]
 [connection signal="timeout" from="coyoteTime" to="." method="_on_coyote_time_timeout"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Button2" to="." method="_on_button_2_pressed"]
+[connection signal="timeout" from="disableMovement" to="." method="_on_disable_movement_timeout"]
+[connection signal="timeout" from="invinciblityFrames" to="." method="_on_invinciblity_frames_timeout"]
