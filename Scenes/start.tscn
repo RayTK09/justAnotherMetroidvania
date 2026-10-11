@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://dw4tjtt4tv6ss" path="res://Sprites/ground.png" id="1_5ogh5"]
 [ext_resource type="Texture2D" uid="uid://duy5dc0nkn4kd" path="res://Sprites/groundRocky.png" id="2_lb6bl"]
 [ext_resource type="PackedScene" uid="uid://4s5ppdivm6rq" path="res://Scenes/player.tscn" id="3_rk01k"]
+[ext_resource type="PackedScene" uid="uid://nuarfax4ue4t" path="res://Scenes/enemies/enemy_grounded.tscn" id="4_lb6bl"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_fkybt"]
 
@@ -44,5 +45,10 @@ tile_map_data = PackedByteArray("AAAAAAAAAAAAAAMAAAABAAAAAAABAAMAAAACAAAAAAACAAM
 tile_set = SubResource("TileSet_2qw5g")
 
 [node name="Player" parent="." unique_id=542916292 instance=ExtResource("3_rk01k")]
-position = Vector2(2, -21)
+position = Vector2(-65, -12)
 speed = 150
+
+[node name="enemyGrounded" parent="." unique_id=1369726823 instance=ExtResource("4_lb6bl")]
+position = Vector2(165.37286, -11.229431)
+
+[connection signal="swing" from="Player" to="enemyGrounded" method="_on_player_swing"]

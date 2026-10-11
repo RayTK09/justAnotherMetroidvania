@@ -2,12 +2,14 @@ extends CharacterBody2D
 
 signal hit
 signal heal(amount : int)
-signal swing
+signal swing(id)
 
 
 @export var health : int = 5
-@export var speed : int
+@export var speed : int = 150
 @export var jumpVel = -400.0
+@export var disableMovement = false
+@export var healthFlaskAmount : int = 2
 
 @onready var aniPlayer = $AnimationPlayer
 @onready var spriteAni = $AnimatedSprite2D
@@ -15,7 +17,7 @@ signal swing
 
 var enemyCollision = false
 var jumped = false
-var disableMovement = false
+var enemyId
 
 func _ready() -> void:
 	pass
@@ -26,12 +28,19 @@ func _input(event: InputEvent) -> void:
 		aniPlayer.play("swingSword")
 		
 	if aniPlayer.current_animation == "swingSword" and enemyCollision:
-		swing.emit()
+		swing.emit(enemyId)
 	#this is for switching the side you are swinging on
 	if Input.is_action_just_pressed("Left"):
 		aniPlayer.play("switchLeft")
 	elif Input.is_action_just_pressed("Right"):
 		aniPlayer.play("switchRight")
+	
+	#healing
+	if Input.is_action_just_pressed("Heal") and healthFlaskAmount > 0:
+		heal.emit(3)
+		healthFlaskAmount -= 1
+		#print("healed")
+		#print(healthFlaskAmount)
 
 
 func _physics_process(delta: float) -> void:
@@ -88,6 +97,8 @@ func _physics_process(delta: float) -> void:
 
 func _on_swing_box_area_entered(area: Area2D) -> void:
 	enemyCollision = true
+	#print(area.get_rid())
+	enemyId = area.get_rid()
 	
 func _on_swing_box_area_exited(area: Area2D) -> void:
 	enemyCollision = false
@@ -95,24 +106,25 @@ func _on_swing_box_area_exited(area: Area2D) -> void:
 func _on_coyote_time_timeout() -> void:
 	jumped = true
 
-func _on_button_2_pressed() -> void:
-	if $invinciblityFrames.is_stopped():
-		hit.emit()
-		$invinciblityFrames.start()
-		if !disableMovement: 
-			$disableMovement.start()
-			disableMovement = true
-		velocity.y = -200
-		if !spriteAni.flip_h:
-			velocity.x = 120
-		if spriteAni.flip_h:
-			velocity.x = -120
-
-func _on_button_pressed() -> void:
-	heal.emit(3)
+#func _on_button_2_pressed() -> void:
+	#if $invinciblityFrames.is_stopped():
+		#$audioPlayer.play()
+		#hit.emit()
+		#$invinciblityFrames.start()
+		#if !disableMovement: 
+			#$disableMovement.start()
+			#disableMovement = true
+		#velocity.y = -200
+		#if !spriteAni.flip_h:
+			#velocity.x = 130
+		#if spriteAni.flip_h:
+			#velocity.x = -130
 
 func _on_disable_movement_timeout() -> void:
-	disableMovement = false
+	if health > -1:
+		disableMovement = false
+	else:
+		disableMovement = true
 
 func _on_invinciblity_frames_timeout() -> void:
 	$invinciblityFrames.stop()

@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://nuarfax4ue4t"]
+
+[ext_resource type="Script" uid="uid://dtlxju1tspt6a" path="res://scripts/enemyScripts/enemy_grounded_one.gd" id="1_4pmop"]
+[ext_resource type="Texture2D" uid="uid://blsnn2qib60hc" path="res://icon.svg" id="2_h3e7c"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4pmop"]
+size = Vector2(18, 18)
+
+[node name="enemyGrounded" type="RigidBody2D" unique_id=1369726823]
+collision_layer = 0
+script = ExtResource("1_4pmop")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1512426525]
+scale = Vector2(0.155, 0.155)
+texture = ExtResource("2_h3e7c")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=479637866]
+shape = SubResource("RectangleShape2D_4pmop")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1379387076]
+collision_layer = 2
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=799674601]
+shape = SubResource("RectangleShape2D_4pmop")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
