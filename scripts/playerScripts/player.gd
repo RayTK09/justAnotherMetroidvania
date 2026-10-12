@@ -66,8 +66,13 @@ func _physics_process(delta: float) -> void:
 		#its a mess
 		if is_on_wall():
 			jumped = false
-		if is_on_wall() and jumped:
-			velocity.y = jumpVel / 2
+		if is_on_wall() and !jumped:
+			if Input.is_action_just_pressed("Jump"):
+				velocity.y = jumpVel
+				jumped = true
+			elif velocity.y < 0:
+				if Input.is_action_just_released("Jump"):
+					velocity.y *= 0.5
 			if spriteAni.flip_h:
 				velocity.x = -20
 			else:
@@ -121,24 +126,5 @@ func _on_swing_box_area_exited(area: Area2D) -> void:
 func _on_coyote_time_timeout() -> void:
 	jumped = true
 
-#func _on_button_2_pressed() -> void:
-	#if $invinciblityFrames.is_stopped():
-		#$audioPlayer.play()
-		#hit.emit()
-		#$invinciblityFrames.start()
-		#if !disableMovement: 
-			#$disableMovement.start()
-			#disableMovement = true
-		#velocity.y = -200
-		#if !spriteAni.flip_h:
-			#velocity.x = 130
-		#if spriteAni.flip_h:
-			#velocity.x = -130
-
 func _on_disable_movement_timeout() -> void:
 		disableMovement = false
-
-
-func _on_area_2d_body_entered(body: Node2D) -> void:
-	hasSword = true
-	$"../Area2D".visible = false

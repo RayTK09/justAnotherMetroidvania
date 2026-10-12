@@ -1,6 +1,7 @@
 [gd_scene format=4 uid="uid://cc0monq6pfxyr"]
 
 [ext_resource type="Texture2D" uid="uid://dw4tjtt4tv6ss" path="res://Sprites/ground.png" id="1_5ogh5"]
+[ext_resource type="Script" uid="uid://d387dxwgcwect" path="res://scripts/start.gd" id="1_o3wvq"]
 [ext_resource type="Texture2D" uid="uid://duy5dc0nkn4kd" path="res://Sprites/groundRocky.png" id="2_lb6bl"]
 [ext_resource type="Texture2D" uid="uid://bfm2srcks71u5" path="res://Sprites/sword.png" id="3_lb6bl"]
 [ext_resource type="PackedScene" uid="uid://4s5ppdivm6rq" path="res://Scenes/player.tscn" id="3_rk01k"]
@@ -8,34 +9,55 @@
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_fkybt"]
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_o3wvq"]
+vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)])
+agent_radius = 0.0
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o3wvq"]
 texture = ExtResource("1_5ogh5")
 margins = Vector2i(0, 8)
 texture_region_size = Vector2i(16, 14)
 0:3/0 = 0
 0:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:3/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_o3wvq")
 1:3/0 = 0
 1:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:3/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_o3wvq")
 2:3/0 = 0
 2:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:3/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_o3wvq")
 3:3/0 = 0
 3:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+3:3/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_o3wvq")
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_pg4io"]
+vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)])
+agent_radius = 0.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pg4io"]
 texture = ExtResource("2_lb6bl")
 0:3/0 = 0
 0:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:3/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_pg4io")
 1:3/0 = 0
 1:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:3/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_pg4io")
 2:3/0 = 0
 2:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:3/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_pg4io")
 3:3/0 = 0
 3:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+3:3/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_pg4io")
 
 [sub_resource type="TileSet" id="TileSet_2qw5g"]
 physics_layer_0/collision_layer = 1
 physics_layer_0/physics_material = SubResource("PhysicsMaterial_fkybt")
 terrain_set_0/mode = 0
+navigation_layer_0/layers = 1
 sources/0 = SubResource("TileSetAtlasSource_o3wvq")
 sources/1 = SubResource("TileSetAtlasSource_pg4io")
 
@@ -43,9 +65,10 @@ sources/1 = SubResource("TileSetAtlasSource_pg4io")
 size = Vector2(9.9479065, 12.96154)
 
 [node name="Node2D" type="Node2D" unique_id=2036661650]
+script = ExtResource("1_o3wvq")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1633958235]
-tile_map_data = PackedByteArray("AAAAAAAAAAAAAAMAAAABAAAAAAABAAMAAAACAAAAAAACAAMAAAADAAAAAAADAAMAAAAEAAAAAAAAAAMAAAAFAAAAAAABAAMAAAAGAAAAAAACAAMAAAAHAAAAAAADAAMAAAAIAAAAAAAAAAMAAAAJAAAAAAABAAMAAAAKAAAAAAACAAMAAAALAAAAAAADAAMAAAAMAAAAAAAAAAMAAAANAAAAAAABAAMAAAAOAAAAAAACAAMAAAAPAAAAAAADAAMAAAAQAAAAAAAAAAMAAAARAAAAAAABAAMAAAASAAAAAAACAAMAAAATAAAAAAADAAMAAAAUAAAAAAAAAAMAAAAVAAAAAAABAAMAAAAWAAAAAAACAAMAAAAXAAAAAAADAAMAAAD8/wAAAAAAAAMAAAD9/wAAAAABAAMAAAD+/wAAAAACAAMAAAD//wAAAAADAAMAAAD4/wAAAAAAAAMAAAD5/wAAAAABAAMAAAD6/wAAAAACAAMAAAD7/wAAAAADAAMAAAD0/wAAAAAAAAMAAAD1/wAAAAABAAMAAAD2/wAAAAACAAMAAAD3/wAAAAADAAMAAADw/wAAAAAAAAMAAADx/wAAAAABAAMAAADy/wAAAAACAAMAAADz/wAAAAADAAMAAAAXAP//AAAAAAMAAAAXAP7/AAAAAAMAAAAXAP3/AAAAAAMAAAAXAPz/AAAAAAMAAAAYAPz/AAABAAMAAAAZAPz/AAACAAMAAAAaAPz/AAADAAMAAAAbAPz/AAAAAAMAAAAcAPz/AAABAAMAAAAdAPz/AAACAAMAAAAeAPz/AAADAAMAAAAfAPz/AAAAAAMAAAAfAPv/AAAAAAMAAAAfAPr/AAAAAAMAAAAfAPn/AAAAAAMAAAAfAPj/AAAAAAMAAAAfAPf/AAAAAAMAAAAfAPb/AAAAAAMAAAAfAPX/AAAAAAMAAAAfAPT/AAAAAAMAAAAfAPP/AAAAAAMAAAAfAPL/AAAAAAMAAAAgAPL/AAAAAAMAAAAhAPL/AAABAAMAAAAiAPL/AAACAAMAAAAjAPL/AAADAAMAAAAkAPL/AAAAAAMAAAAlAPL/AAABAAMAAAAmAPL/AAACAAMAAAAnAPL/AAADAAMAAAAoAPL/AAAAAAMAAAApAPL/AAABAAMAAAAqAPL/AAACAAMAAAArAPL/AAADAAMAAAAsAPP/AAAAAAMAAAAtAPP/AAAAAAMAAAAuAPP/AAAAAAMAAAAvAPT/AAAAAAMAAAAwAPT/AAAAAAMAAAAxAPT/AAAAAAMAAAAyAPT/AAAAAAMAAAAzAPT/AAAAAAMAAAA0APT/AAAAAAMAAAA1APP/AAAAAAMAAAA2APP/AAAAAAMAAAA3APP/AAAAAAMAAAA4APL/AAAAAAMAAAA5APL/AAABAAMAAAA6APL/AAACAAMAAAA7APL/AAADAAMAAAA8APL/AAAAAAMAAAA9APL/AAABAAMAAAA+APL/AAACAAMAAAA/APL/AAADAAMAAABAAPL/AAAAAAMAAABBAPL/AAABAAMAAABCAPL/AAACAAMAAABDAPL/AAADAAMAAABEAPL/AAAAAAMAAABFAPL/AAABAAMAAABGAPL/AAACAAMAAABHAPL/AAADAAMAAABIAPL/AAAAAAMAAABJAPL/AAABAAMAAABKAPL/AAACAAMAAABLAPL/AAADAAMAAABMAPL/AAAAAAMAAABNAPL/AAABAAMAAABOAPL/AAACAAMAAABPAPL/AAADAAMAAABGAO//AgAAAAAAAABGAPD/AgAAAAEAAABGAPH/AgAAAAIAAABHAO//AgABAAAAAABHAPD/AgABAAEAAABHAPH/AgABAAIAAAA=")
+tile_map_data = PackedByteArray("AAAAAAAAAAAAAAMAAAABAAAAAAABAAMAAAACAAAAAAACAAMAAAADAAAAAAADAAMAAAAEAAAAAAAAAAMAAAAFAAAAAAABAAMAAAAGAAAAAAACAAMAAAAHAAAAAAADAAMAAAAIAAAAAAAAAAMAAAAJAAAAAAABAAMAAAAKAAAAAAACAAMAAAALAAAAAAADAAMAAAAMAAAAAAAAAAMAAAANAAAAAAABAAMAAAAOAAAAAAACAAMAAAAPAAAAAAADAAMAAAAQAAAAAAAAAAMAAAARAAAAAAABAAMAAAASAAAAAAACAAMAAAATAAAAAAADAAMAAAAUAAAAAAAAAAMAAAAVAAAAAAABAAMAAAAWAAAAAAACAAMAAAAXAAAAAAADAAMAAAD8/wAAAAAAAAMAAAD9/wAAAAABAAMAAAD+/wAAAAACAAMAAAD//wAAAAADAAMAAAD4/wAAAAAAAAMAAAD5/wAAAAABAAMAAAD6/wAAAAACAAMAAAD7/wAAAAADAAMAAAD0/wAAAAAAAAMAAAD1/wAAAAABAAMAAAD2/wAAAAACAAMAAAD3/wAAAAADAAMAAADw/wAAAAAAAAMAAADx/wAAAAABAAMAAADy/wAAAAACAAMAAADz/wAAAAADAAMAAAAXAP//AAAAAAMAAAAXAP7/AAAAAAMAAAAXAP3/AAAAAAMAAAAXAPz/AAAAAAMAAAAYAPz/AAABAAMAAAAZAPz/AAACAAMAAAAaAPz/AAADAAMAAAAbAPz/AAAAAAMAAAAcAPz/AAABAAMAAAAdAPz/AAACAAMAAAAeAPz/AAADAAMAAAAfAPz/AAAAAAMAAAAfAPv/AAAAAAMAAAAfAPr/AAAAAAMAAAAfAPn/AAAAAAMAAAAfAPj/AAAAAAMAAAAfAPf/AAAAAAMAAAAfAPb/AAAAAAMAAAAfAPX/AAAAAAMAAAAfAPT/AAAAAAMAAAAfAPP/AAAAAAMAAAAfAPL/AAAAAAMAAAAgAPL/AAAAAAMAAAAhAPL/AAABAAMAAAAiAPL/AAACAAMAAAAjAPL/AAADAAMAAAAkAPL/AAAAAAMAAAAlAPL/AAABAAMAAAAmAPL/AAACAAMAAAAnAPL/AAADAAMAAAAoAPL/AAAAAAMAAAApAPL/AAABAAMAAAAqAPL/AAACAAMAAAArAPL/AAADAAMAAAAsAPP/AAAAAAMAAAAtAPP/AAAAAAMAAAAuAPP/AAAAAAMAAAAvAPT/AAAAAAMAAAAwAPT/AAAAAAMAAAAxAPT/AAAAAAMAAAAyAPT/AAAAAAMAAAAzAPT/AAAAAAMAAAA0APT/AAAAAAMAAAA1APP/AAAAAAMAAAA2APP/AAAAAAMAAAA3APP/AAAAAAMAAAA4APL/AAAAAAMAAAA5APL/AAABAAMAAAA6APL/AAACAAMAAAA7APL/AAADAAMAAAA8APL/AAAAAAMAAAA9APL/AAABAAMAAAA+APL/AAACAAMAAAA/APL/AAADAAMAAABAAPL/AAAAAAMAAABBAPL/AAABAAMAAABCAPL/AAACAAMAAABDAPL/AAADAAMAAABEAPL/AAAAAAMAAABFAPL/AAABAAMAAABGAPL/AAACAAMAAABHAPL/AAADAAMAAABIAPL/AAAAAAMAAABJAPL/AAABAAMAAABKAPL/AAACAAMAAABLAPL/AAADAAMAAABMAPL/AAAAAAMAAABNAPL/AAABAAMAAABOAPL/AAACAAMAAABPAPL/AAADAAMAAAA=")
 tile_set = SubResource("TileSet_2qw5g")
 
 [node name="Player" parent="." unique_id=542916292 instance=ExtResource("3_rk01k")]
@@ -68,9 +91,9 @@ position = Vector2(-3.5881996e-05, 3.3317232)
 scale = Vector2(0.3, 0.2)
 texture = ExtResource("3_lb6bl")
 
-[node name="enemyGrounded" parent="." unique_id=1369726823 instance=ExtResource("4_lb6bl")]
-position = Vector2(1178, -233)
+[node name="enemyGrounded" parent="." unique_id=1369726823 node_paths=PackedStringArray("player") instance=ExtResource("4_lb6bl")]
+position = Vector2(1207, -222.00002)
+player = NodePath("../Player")
 
 [connection signal="swing" from="Player" to="enemyGrounded" method="_on_player_swing"]
-[connection signal="area_entered" from="Area2D" to="Player" method="_on_area_2d_area_entered"]
-[connection signal="body_entered" from="Area2D" to="Player" method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

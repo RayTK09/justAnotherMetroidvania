@@ -1,7 +1,10 @@
 [gd_scene format=3 uid="uid://nuarfax4ue4t"]
 
 [ext_resource type="Script" uid="uid://dtlxju1tspt6a" path="res://scripts/enemyScripts/enemy_grounded_one.gd" id="1_4pmop"]
-[ext_resource type="Texture2D" uid="uid://blsnn2qib60hc" path="res://icon.svg" id="2_h3e7c"]
+[ext_resource type="Texture2D" uid="uid://igpcufy0t06" path="res://Sprites/playerSprites/playerCharacter.png" id="2_4pmop"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h3e7c"]
+size = Vector2(19.229149, 17.556595)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4pmop"]
 size = Vector2(18, 18)
@@ -9,22 +12,118 @@ size = Vector2(18, 18)
 [sub_resource type="CircleShape2D" id="CircleShape2D_2qw5g"]
 radius = 17.029387
 
-[node name="enemyGrounded" type="RigidBody2D" unique_id=1369726823]
+[sub_resource type="Animation" id="Animation_4pmop"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:flip_h")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("playerDetect:target_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(75, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_h3e7c"]
+resource_name = "switch left"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("playerDetect:target_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-75, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_23fff"]
+resource_name = "switch right"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:flip_h")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("playerDetect:target_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(75, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xlqtj"]
+_data = {
+&"RESET": SubResource("Animation_4pmop"),
+&"switch left": SubResource("Animation_h3e7c"),
+&"switch right": SubResource("Animation_23fff")
+}
+
+[node name="enemyGrounded" type="CharacterBody2D" unique_id=403579251]
+scale = Vector2(1.5, 1.5)
 collision_layer = 0
 script = ExtResource("1_4pmop")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1512426525]
+position = Vector2(-0.3733333, -9.413334)
 scale = Vector2(0.155, 0.155)
-texture = ExtResource("2_h3e7c")
+texture = ExtResource("2_4pmop")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=479637866]
-shape = SubResource("RectangleShape2D_4pmop")
+position = Vector2(-0.52813005, -9.333335)
+scale = Vector2(0.401626, 0.9872834)
+shape = SubResource("RectangleShape2D_h3e7c")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1379387076]
+position = Vector2(-0.3733333, -9.413334)
 collision_layer = 2
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=799674601]
+scale = Vector2(0.401626, 0.98728335)
 shape = SubResource("RectangleShape2D_4pmop")
 
 [node name="invuln" type="Timer" parent="." unique_id=397951845]
@@ -32,16 +131,30 @@ wait_time = 0.1
 one_shot = true
 
 [node name="playerDetect" type="RayCast2D" parent="." unique_id=1703299006]
-target_position = Vector2(50, 0)
+position = Vector2(-0.3733333, -9.413334)
+target_position = Vector2(75, 0)
 collision_mask = 16
 
 [node name="playerNear" type="Area2D" parent="." unique_id=343949211]
+position = Vector2(-0.3733333, -16.413334)
+scale = Vector2(2.496863, 1.4699708)
 collision_layer = 0
 collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="playerNear" unique_id=280675003]
 shape = SubResource("CircleShape2D_2qw5g")
 
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=533916584]
+debug_enabled = true
+
+[node name="Timer" type="Timer" parent="." unique_id=1600534846]
+wait_time = 0.5
+autostart = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=913246721]
+libraries/ = SubResource("AnimationLibrary_xlqtj")
+
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
-[connection signal="timeout" from="invuln" to="." method="_on_invuln_timeout"]
 [connection signal="body_entered" from="playerNear" to="." method="_on_player_near_body_entered"]
+[connection signal="body_exited" from="playerNear" to="." method="_on_player_near_body_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
