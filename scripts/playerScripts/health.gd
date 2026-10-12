@@ -10,24 +10,32 @@ var loadDead = load("res://Sprites/playerSprites/heartBroken.png")
 
 
 func _on_player_hit() -> void:
+	#check whether invin is stopped, then apply damage
 	if $"../invinciblityFrames".is_stopped():
 		hearts[health].texture = loadDead
 		health -= 1
+	#handle the player death screen
+	#WHY ARENT YOU WORKING????
+	#only works when health evaluates to above 0?
+	#I forgot to turn on oneshot, cool
 	if health < 0:
-		health = 0
 		$"../Control/Label".visible = true
 		player.disableMovement = true
+		player.gameOver = true
+	#Invin frames and the audio
 	if $"../invinciblityFrames".is_stopped():
 		$"../audioPlayer".play()
 		$"../invinciblityFrames".start()
+		#at the same time, run the timer to disable move and allow knockback
 		if !player.disableMovement: 
 			$"../disableMovement".start()
 			player.disableMovement = true
+		#apply the y, then the x to get knockback
 		player.velocity.y = -200
 		if !$"../AnimatedSprite2D".flip_h:
-			player.velocity.x = 130
+			player.velocity.x = -100
 		if $"../AnimatedSprite2D".flip_h:
-			player.velocity.x = -130
+			player.velocity.x = 100
 	print(health)
 
 func _on_player_heal(amount: int) -> void:

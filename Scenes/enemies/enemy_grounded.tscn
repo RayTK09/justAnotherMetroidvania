@@ -6,6 +6,9 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4pmop"]
 size = Vector2(18, 18)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_2qw5g"]
+radius = 17.029387
+
 [node name="enemyGrounded" type="RigidBody2D" unique_id=1369726823]
 collision_layer = 0
 script = ExtResource("1_4pmop")
@@ -24,4 +27,21 @@ collision_mask = 8
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=799674601]
 shape = SubResource("RectangleShape2D_4pmop")
 
+[node name="invuln" type="Timer" parent="." unique_id=397951845]
+wait_time = 0.1
+one_shot = true
+
+[node name="playerDetect" type="RayCast2D" parent="." unique_id=1703299006]
+target_position = Vector2(50, 0)
+collision_mask = 16
+
+[node name="playerNear" type="Area2D" parent="." unique_id=343949211]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="playerNear" unique_id=280675003]
+shape = SubResource("CircleShape2D_2qw5g")
+
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="timeout" from="invuln" to="." method="_on_invuln_timeout"]
+[connection signal="body_entered" from="playerNear" to="." method="_on_player_near_body_entered"]

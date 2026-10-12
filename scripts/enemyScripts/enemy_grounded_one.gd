@@ -4,14 +4,11 @@ extends RigidBody2D
 
 @onready var player = $"../Player"
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	if health <= 0:
+		queue_free()
+	#print($invuln.time_left)
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
@@ -21,6 +18,12 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 
 
 func _on_player_swing(id) -> void:
-	if player.enemyCollision and id == $'Area2D'.get_rid():
-		print("collided")
+	if player.enemyCollision and id == $'Area2D'.get_rid() and $invuln.is_stopped():
+		#print("collided")
+		$invuln.start()
 		linear_velocity.x = 200
+		health -= 1
+
+
+func _on_player_near_body_entered(body: Node2D) -> void:
+	pass # Replace with function body.
