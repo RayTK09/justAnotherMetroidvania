@@ -22,7 +22,7 @@ var gameOver = false
 var hasSword = false
 
 func _ready() -> void:
-	pass
+	$Control/TextureRect/Label.text = str(healthFlaskAmount)
 
 func _input(event: InputEvent) -> void:
 	#handling the sword swinging
@@ -42,6 +42,7 @@ func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("Heal") and healthFlaskAmount > 0:
 		heal.emit(3)
 		healthFlaskAmount -= 1
+		$Control/TextureRect/Label.text = str(healthFlaskAmount)
 		#print("healed")
 		#print(healthFlaskAmount)
 

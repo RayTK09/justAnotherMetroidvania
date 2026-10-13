@@ -74,6 +74,7 @@ tile_set = SubResource("TileSet_2qw5g")
 [node name="Player" parent="." unique_id=542916292 instance=ExtResource("3_rk01k")]
 position = Vector2(-65, -12)
 speed = 150
+healthFlaskAmount = 3
 
 [node name="Area2D" type="Area2D" parent="." unique_id=555800957]
 position = Vector2(1037, -248)

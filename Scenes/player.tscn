@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bfma0rjrjamv7" path="res://Sprites/playerSprites/heart.png" id="7_3smsa"]
 [ext_resource type="Script" uid="uid://d310h2ehu6f4x" path="res://scripts/playerScripts/health.gd" id="7_8erm5"]
 [ext_resource type="AudioStream" uid="uid://cpww1dw8ifs3x" path="res://SFX/break.mp3" id="9_f1ek2"]
+[ext_resource type="Texture2D" uid="uid://c6o8l5h5plttw" path="res://Sprites/playerSprites/healthFlask.png" id="10_tx1dd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fkybt"]
 size = Vector2(10, 24)
@@ -229,6 +230,7 @@ one_shot = true
 
 [node name="health" type="Node2D" parent="." unique_id=971958386]
 position = Vector2(-194, -104)
+scale = Vector2(1.6580294, 1.6580294)
 script = ExtResource("7_8erm5")
 
 [node name="heart1" type="Sprite2D" parent="health" unique_id=2005968072]
@@ -270,6 +272,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+scale = Vector2(1.6580294, 1.6580294)
 
 [node name="Label" type="Label" parent="Control" unique_id=1685736246]
 visible = false
@@ -279,6 +282,23 @@ offset_top = -70.0
 offset_right = 49.0
 offset_bottom = -47.0
 text = "Game over :("
+
+[node name="TextureRect" type="TextureRect" parent="Control" unique_id=1657041105]
+layout_mode = 0
+offset_left = -126.05323
+offset_top = -53.07507
+offset_right = -62.05323
+offset_bottom = 10.924931
+scale = Vector2(0.25416023, 0.25416023)
+texture = ExtResource("10_tx1dd")
+
+[node name="Label" type="Label" parent="Control/TextureRect" unique_id=217618463]
+layout_mode = 0
+offset_left = 58.88609
+offset_top = 19.62873
+offset_right = 150.8861
+offset_bottom = 42.62873
+text = "placeholder"
 
 [connection signal="heal" from="." to="health" method="_on_player_heal"]
 [connection signal="hit" from="." to="health" method="_on_player_hit"]
