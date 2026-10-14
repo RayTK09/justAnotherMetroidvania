@@ -96,5 +96,9 @@ texture = ExtResource("3_lb6bl")
 position = Vector2(1000.00006, -224.00002)
 player = NodePath("../Player")
 
+[node name="enemyGrounded2" parent="." unique_id=403579251 node_paths=PackedStringArray("player") instance=ExtResource("4_lb6bl")]
+position = Vector2(809.00006, -190)
+player = NodePath("../Player")
+
 [connection signal="swing" from="Player" to="enemyGrounded" method="_on_player_swing"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

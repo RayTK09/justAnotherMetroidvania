@@ -61,8 +61,8 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		#print('collided')
 
 
-func _on_player_swing(id) -> void:
-	if player.enemyCollision and $invuln.is_stopped():
+func _on_player_swing(hasSwung) -> void:
+	if player.enemyCollision and $invuln.is_stopped() and hasSwung:
 		print("collided")
 		$invuln.start()
 		if $Sprite2D.flip_h:

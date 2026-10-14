@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 signal hit
 signal heal(amount : int)
-signal swing(id)
+signal swing(hashit : bool)
 
 
 @export var health : int = 4
@@ -17,7 +17,7 @@ signal swing(id)
 
 var enemyCollision = false
 var jumped = false
-var enemyId
+var swordPower = 1
 var gameOver = false
 var hasSword = false
 
@@ -30,7 +30,7 @@ func _input(event: InputEvent) -> void:
 		aniPlayer.play("swingSword")
 		
 	if aniPlayer.current_animation == "swingSword" and enemyCollision and hasSword:
-		swing.emit(enemyId)
+		swing.emit(true)
 		#print(enemyId)
 		#print(enemyCollision)
 	#this is for switching the side you are swinging on
@@ -126,8 +126,8 @@ func _on_disable_movement_timeout() -> void:
 
 func _on_swing_box_body_entered(body: Node2D) -> void:
 	enemyCollision = true
+	body.health -= swordPower
 	#print(area.get_rid())
-	enemyId = body.get("name")
 
 
 func _on_swing_box_body_exited(body: Node2D) -> void:
