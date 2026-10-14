@@ -9,50 +9,67 @@ extends CharacterBody2D
 @onready var rayCast = $playerDetect
 @onready var animationControl = $AnimationPlayer
 
-var speed = 1.5
+var speed = 50
 var canSeePlayer = false
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if health <= 0:
 		queue_free()
 	#print($invuln.time_left)
-	var direction = to_local(navAgent.get_next_path_position())
-	velocity = direction * speed
-	move_and_slide()
-	#print(navAgent.get_target_position())
-	#print(position)
 	
-	#Raycast line of sight
+	if !is_on_floor():
+		velocity += get_gravity() * delta
+	
+	if player.position.x > position.x - 30 and player.position.x < position.x + 30 and canSeePlayer:
+		velocity.x = 0
+	elif player.position.x > position.x and canSeePlayer:
+		velocity.x = speed * 1
+	elif player.position.x < position.x and canSeePlayer:
+		velocity.x = speed * -1
+		
+	if canSeePlayer == false:
+		velocity.x = 0
+		
+	move_and_slide()
+	
+	rayCastDetectPlayer()
+	checkFloor()
+	print($"edge detection/detectRight".is_colliding())
+	print($"edge detection/detectLeft".is_colliding())
+
+
+#Raycast line of sight
+func rayCastDetectPlayer() -> void:
 	if rayCast.is_colliding():
 		var shape = rayCast.get_collider().get("name")
 		if shape == player.get("name"):
 			canSeePlayer = true
-	elif !rayCast.is_colliding():
+	elif !rayCast.is_colliding() and $lostPlayer.is_stopped():
 		canSeePlayer = false
-		
 
-
-func makePath() -> void:
-	if canSeePlayer:
-		navAgent.set_target_position(Vector2(player.position.x, position.y)) 
-
+func checkFloor() -> void:
+	if !$"edge detection/detectRight".is_colliding() and player.position.x < position.x and canSeePlayer:
+		canSeePlayer = false
+	elif !$"edge detection/detectLeft".is_colliding() and player.position.x > position.x and canSeePlayer:
+		canSeePlayer = false
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	if body == $"../Player":
+	if body.get("name") == player.get("name"):
 		player.hit.emit()
 		#print('collided')
 
 
 func _on_player_swing(id) -> void:
-	if player.enemyCollision and id == $'Area2D'.get_rid() and $invuln.is_stopped():
-		#print("collided")
+	if player.enemyCollision and $invuln.is_stopped():
+		print("collided")
 		$invuln.start()
 		if $Sprite2D.flip_h:
 			position.x += 30
 		elif !$Sprite2D.flip_h:
 			position.x -= 30
-		health -= 1
+	health -= 1
 
 #detect if the player is around the enemy
 func _on_player_near_body_entered(body: Node2D) -> void:
@@ -68,8 +85,8 @@ func _on_player_near_body_entered(body: Node2D) -> void:
 
 func _on_player_near_body_exited(body: Node2D) -> void:
 	if body.get('name') == player.get("name"):
-		canSeePlayer = false
+		$lostPlayer.start()
 
-#make a path every half a second
-func _on_timer_timeout() -> void:
-	makePath()
+
+func _on_lost_player_timeout() -> void:
+	canSeePlayer = false

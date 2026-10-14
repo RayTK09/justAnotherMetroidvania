@@ -31,7 +31,8 @@ func _input(event: InputEvent) -> void:
 		
 	if aniPlayer.current_animation == "swingSword" and enemyCollision and hasSword:
 		swing.emit(enemyId)
-		velocity.x = 50
+		#print(enemyId)
+		#print(enemyCollision)
 	#this is for switching the side you are swinging on
 	if Input.is_action_just_pressed("Left"):
 		aniPlayer.play("switchLeft")
@@ -116,16 +117,18 @@ func _physics_process(delta: float) -> void:
 		velocity.x = 0
 
 
-func _on_swing_box_area_entered(area: Area2D) -> void:
-	enemyCollision = true
-	#print(area.get_rid())
-	enemyId = area.get_rid()
-	
-func _on_swing_box_area_exited(area: Area2D) -> void:
-	enemyCollision = false
-
 func _on_coyote_time_timeout() -> void:
 	jumped = true
 
 func _on_disable_movement_timeout() -> void:
 		disableMovement = false
+
+
+func _on_swing_box_body_entered(body: Node2D) -> void:
+	enemyCollision = true
+	#print(area.get_rid())
+	enemyId = body.get("name")
+
+
+func _on_swing_box_body_exited(body: Node2D) -> void:
+	enemyCollision = false

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dvd51mufittly"
-path="res://.godot/imported/playerUp.png-4b72b4d8274c749b3f389b9666bf4887.ctex"
+uid="uid://b8h68s1dxflcv"
+path="res://.godot/imported/playerWalk-Sheet.png-18bf91e8b17151331dea8225e1255a2e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/playerSprites/playerUp.png"
-dest_files=["res://.godot/imported/playerUp.png-4b72b4d8274c749b3f389b9666bf4887.ctex"]
+source_file="res://Sprites/playerSprites/old/playerWalk-Sheet.png"
+dest_files=["res://.godot/imported/playerWalk-Sheet.png-18bf91e8b17151331dea8225e1255a2e.ctex"]
 
 [params]
 

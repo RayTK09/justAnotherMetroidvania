@@ -1,9 +1,10 @@
 [gd_scene format=3 uid="uid://nuarfax4ue4t"]
 
 [ext_resource type="Script" uid="uid://dtlxju1tspt6a" path="res://scripts/enemyScripts/enemy_grounded_one.gd" id="1_4pmop"]
-[ext_resource type="Texture2D" uid="uid://igpcufy0t06" path="res://Sprites/playerSprites/playerCharacter.png" id="2_4pmop"]
+[ext_resource type="Texture2D" uid="uid://igpcufy0t06" path="res://Sprites/playerSprites/old/playerCharacter.png" id="2_4pmop"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h3e7c"]
+resource_local_to_scene = true
 size = Vector2(19.229149, 17.556595)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4pmop"]
@@ -104,7 +105,7 @@ _data = {
 
 [node name="enemyGrounded" type="CharacterBody2D" unique_id=403579251]
 scale = Vector2(1.5, 1.5)
-collision_layer = 0
+collision_layer = 2
 script = ExtResource("1_4pmop")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1512426525]
@@ -119,7 +120,7 @@ shape = SubResource("RectangleShape2D_h3e7c")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1379387076]
 position = Vector2(-0.3733333, -9.413334)
-collision_layer = 2
+collision_layer = 0
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=799674601]
@@ -147,14 +148,24 @@ shape = SubResource("CircleShape2D_2qw5g")
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=533916584]
 debug_enabled = true
 
-[node name="Timer" type="Timer" parent="." unique_id=1600534846]
-wait_time = 0.5
-autostart = true
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=913246721]
 libraries/ = SubResource("AnimationLibrary_xlqtj")
+
+[node name="edge detection" type="Node2D" parent="." unique_id=1501850436]
+
+[node name="detectRight" type="RayCast2D" parent="edge detection" unique_id=654286941]
+position = Vector2(5.3333335, -0.6666667)
+target_position = Vector2(0, 5)
+
+[node name="detectLeft" type="RayCast2D" parent="edge detection" unique_id=600467628]
+position = Vector2(-6.6666665, -0.6666667)
+target_position = Vector2(0, 5)
+
+[node name="lostPlayer" type="Timer" parent="." unique_id=1935253050]
+wait_time = 5.0
+one_shot = true
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="playerNear" to="." method="_on_player_near_body_entered"]
 [connection signal="body_exited" from="playerNear" to="." method="_on_player_near_body_exited"]
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="lostPlayer" to="." method="_on_lost_player_timeout"]
