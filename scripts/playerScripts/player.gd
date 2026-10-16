@@ -15,7 +15,6 @@ signal swing(hashit : bool)
 @onready var spriteAni = $AnimatedSprite2D
 @onready var swingHitbox = $swingBox
 
-var enemyCollision = false
 var jumped = false
 var swordPower = 1
 var gameOver = false
@@ -23,16 +22,14 @@ var hasSword = false
 
 func _ready() -> void:
 	$Control/TextureRect/Label.text = str(healthFlaskAmount)
+	swingHitbox.monitoring = false
 
 func _input(event: InputEvent) -> void:
 	#handling the sword swinging
 	if Input.is_action_just_pressed("Swing") and !aniPlayer.is_playing() and hasSword:
 		aniPlayer.play("swingSword")
-		
-	if aniPlayer.current_animation == "swingSword" and enemyCollision and hasSword:
 		swing.emit(true)
-		#print(enemyId)
-		#print(enemyCollision)
+	
 	#this is for switching the side you are swinging on
 	if Input.is_action_just_pressed("Left"):
 		aniPlayer.play("switchLeft")
@@ -115,6 +112,7 @@ func _physics_process(delta: float) -> void:
 		#print($invinciblityFrames.time_left)
 	else:
 		velocity.x = 0
+	print(swingHitbox.monitoring)
 
 
 func _on_coyote_time_timeout() -> void:
@@ -125,10 +123,8 @@ func _on_disable_movement_timeout() -> void:
 
 
 func _on_swing_box_body_entered(body: Node2D) -> void:
-	enemyCollision = true
 	body.health -= swordPower
-	#print(area.get_rid())
-
-
-func _on_swing_box_body_exited(body: Node2D) -> void:
-	enemyCollision = false
+	if spriteAni.flip_h:
+		body.position.x -= 30
+	elif !spriteAni.flip_h:
+		body.position.x += 30

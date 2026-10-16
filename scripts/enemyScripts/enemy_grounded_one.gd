@@ -36,8 +36,8 @@ func _process(delta: float) -> void:
 	
 	rayCastDetectPlayer()
 	checkFloor()
-	print($"edge detection/detectRight".is_colliding())
-	print($"edge detection/detectLeft".is_colliding())
+	#print($"edge detection/detectRight".is_colliding())
+	#print($"edge detection/detectLeft".is_colliding())
 
 
 #Raycast line of sight
@@ -62,14 +62,10 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 
 
 func _on_player_swing(hasSwung) -> void:
-	if player.enemyCollision and $invuln.is_stopped() and hasSwung:
+	if $invuln.is_stopped() and hasSwung:
 		print("collided")
 		$invuln.start()
-		if $Sprite2D.flip_h:
-			position.x += 30
-		elif !$Sprite2D.flip_h:
-			position.x -= 30
-	health -= 1
+		
 
 #detect if the player is around the enemy
 func _on_player_near_body_entered(body: Node2D) -> void:
