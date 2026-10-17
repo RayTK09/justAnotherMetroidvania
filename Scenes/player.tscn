@@ -1,13 +1,14 @@
 [gd_scene format=3 uid="uid://4s5ppdivm6rq"]
 
 [ext_resource type="Script" uid="uid://dqkyi7nmtwycv" path="res://scripts/playerScripts/player.gd" id="1_onrkg"]
-[ext_resource type="Texture2D" uid="uid://blsnn2qib60hc" path="res://icon.svg" id="2_i3pqv"]
+[ext_resource type="Texture2D" uid="uid://io3pfqxda4f7" path="res://Sprites/playerSprites/slash-Sheet.png" id="3_pu2lt"]
 [ext_resource type="Texture2D" uid="uid://ckurrf5bs26vj" path="res://Sprites/playerSprites/playerFalling.png" id="3_tx1dd"]
 [ext_resource type="Texture2D" uid="uid://xd44cno8dmyr" path="res://Sprites/playerSprites/playerCharNew.png" id="4_tx1dd"]
 [ext_resource type="Texture2D" uid="uid://bo8wg0527j0ed" path="res://Sprites/playerSprites/playerJumping.png" id="5_gymyn"]
 [ext_resource type="Texture2D" uid="uid://dvch36at8drue" path="res://Sprites/playerSprites/playerCharWalk.png" id="6_gymyn"]
 [ext_resource type="Texture2D" uid="uid://bfma0rjrjamv7" path="res://Sprites/playerSprites/heart.png" id="7_3smsa"]
 [ext_resource type="Script" uid="uid://d310h2ehu6f4x" path="res://scripts/playerScripts/health.gd" id="7_8erm5"]
+[ext_resource type="Texture2D" uid="uid://ymmvxiusf6bh" path="res://Sprites/playerSprites/playerSwing-Sheet.png" id="7_ukyrk"]
 [ext_resource type="AudioStream" uid="uid://cpww1dw8ifs3x" path="res://SFX/break.mp3" id="9_f1ek2"]
 [ext_resource type="Texture2D" uid="uid://c6o8l5h5plttw" path="res://Sprites/playerSprites/healthFlask.png" id="10_tx1dd"]
 
@@ -59,6 +60,18 @@ tracks/3/path = NodePath("swingBox:monitoring")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("swingBox/AnimatedSprite2D:flip_h")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -120,6 +133,18 @@ tracks/1/keys = {
 "update": 0,
 "values": [true]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("swingBox/AnimatedSprite2D:flip_h")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_fkybt"]
 resource_name = "switchRight"
@@ -148,6 +173,18 @@ tracks/1/keys = {
 "update": 0,
 "values": [false]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("swingBox/AnimatedSprite2D:flip_h")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_vgqql"]
 _data = {
@@ -158,6 +195,55 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2qw5g"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fd4e3"]
+atlas = ExtResource("3_pu2lt")
+region = Rect2(0, 0, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qqcod"]
+atlas = ExtResource("3_pu2lt")
+region = Rect2(512, 0, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_igrcy"]
+atlas = ExtResource("3_pu2lt")
+region = Rect2(1024, 0, 512, 512)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_natlx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fd4e3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qqcod")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_igrcy")
+}],
+"loop": 0,
+"name": &"slash",
+"speed": 13.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fs7ks"]
+atlas = ExtResource("7_ukyrk")
+region = Rect2(0, 0, 1536, 1072)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l6n3p"]
+atlas = ExtResource("7_ukyrk")
+region = Rect2(1536, 0, 1536, 1072)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_olqyp"]
+atlas = ExtResource("7_ukyrk")
+region = Rect2(3072, 0, 1536, 1072)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wpjfl"]
+atlas = ExtResource("7_ukyrk")
+region = Rect2(4608, 0, 1536, 1072)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bi64h"]
+atlas = ExtResource("7_ukyrk")
+region = Rect2(6144, 0, 1536, 1072)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pu2lt"]
 atlas = ExtResource("6_gymyn")
@@ -203,6 +289,26 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_fs7ks")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l6n3p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_olqyp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wpjfl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bi64h")
+}],
+"loop": 0,
+"name": &"swing",
+"speed": 24.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_pu2lt")
 }, {
 "duration": 1.0,
@@ -245,14 +351,22 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="swingBox" unique_id=1676319889]
 shape = SubResource("RectangleShape2D_2qw5g")
 
-[node name="Sprite2D" type="Sprite2D" parent="swingBox" unique_id=889108553]
-scale = Vector2(0.1536261, 0.153)
-texture = ExtResource("2_i3pqv")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="swingBox" unique_id=395494997]
+position = Vector2(1.9736842, 0)
+scale = Vector2(0.05, 0.05)
+sprite_frames = SubResource("SpriteFrames_natlx")
+animation = &"slash"
+frame = 2
+frame_progress = 1.0
+flip_h = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1992023396]
 position = Vector2(-1.4210855e-14, -2.3841858e-07)
 scale = Vector2(0.05, 0.05)
 sprite_frames = SubResource("SpriteFrames_2qw5g")
+animation = &"swing"
+frame = 4
+frame_progress = 1.0
 
 [node name="coyoteTime" type="Timer" parent="." unique_id=1767994749]
 wait_time = 0.1

@@ -22,20 +22,33 @@ func _process(delta: float) -> void:
 	if !is_on_floor():
 		velocity += get_gravity() * delta
 	
-	if player.position.x > position.x - 30 and player.position.x < position.x + 30 and canSeePlayer:
+	#Its beginning to look a lot like dustbowllllllll
+	if player.position.x > position.x - 20 and player.position.x < position.x + 20 and canSeePlayer:
 		velocity.x = 0
+		$AnimatedSprite2D.play("default")
 	elif player.position.x > position.x and canSeePlayer:
 		velocity.x = speed * 1
+		$AnimatedSprite2D.play("walk")
 	elif player.position.x < position.x and canSeePlayer:
 		velocity.x = speed * -1
+		$AnimatedSprite2D.play("walk")
 		
-	if canSeePlayer == false:
+	if !canSeePlayer:
 		velocity.x = 0
+		
+	if canSeePlayer:
+		#switch enemy direction
+		if player.position.x > position.x:
+			animationControl.play("switch right")
+		elif player.position.x < position.x:
+			animationControl.play("switch left")
+
 		
 	move_and_slide()
 	
 	rayCastDetectPlayer()
 	checkFloor()
+	print(canSeePlayer)
 	#print($"edge detection/detectRight".is_colliding())
 	#print($"edge detection/detectLeft".is_colliding())
 
@@ -46,8 +59,6 @@ func rayCastDetectPlayer() -> void:
 		var shape = rayCast.get_collider().get("name")
 		if shape == player.get("name"):
 			canSeePlayer = true
-	elif !rayCast.is_colliding() and $lostPlayer.is_stopped():
-		canSeePlayer = false
 
 func checkFloor() -> void:
 	if !$"edge detection/detectRight".is_colliding() and player.position.x < position.x and canSeePlayer:
@@ -63,7 +74,6 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 
 func _on_player_swing(hasSwung) -> void:
 	if $invuln.is_stopped() and hasSwung:
-		print("collided")
 		$invuln.start()
 		
 
@@ -72,12 +82,6 @@ func _on_player_near_body_entered(body: Node2D) -> void:
 	if body.get('name') == player.get("name"):
 		#print("detected!")
 		canSeePlayer = true
-		#switch enemy direction
-	if player.position.x > position.x:
-		animationControl.play("switch right")
-	elif player.position.x < position.x:
-		animationControl.play("switch left")
-
 
 func _on_player_near_body_exited(body: Node2D) -> void:
 	if body.get('name') == player.get("name"):

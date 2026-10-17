@@ -26,9 +26,12 @@ func _ready() -> void:
 
 func _input(event: InputEvent) -> void:
 	#handling the sword swinging
-	if Input.is_action_just_pressed("Swing") and !aniPlayer.is_playing() and hasSword:
+	if Input.is_action_just_pressed("Swing") and hasSword:
 		aniPlayer.play("swingSword")
+		spriteAni.play("swing")
 		swing.emit(true)
+		if spriteAni.animation_finished:
+			spriteAni.play("default")
 	
 	#this is for switching the side you are swinging on
 	if Input.is_action_just_pressed("Left"):
@@ -100,19 +103,21 @@ func _physics_process(delta: float) -> void:
 		var direction := Input.get_axis("Left", "Right")
 		if direction and !disableMovement:
 			velocity.x = direction * speed
-			if is_on_floor():
+			if is_on_floor() and !spriteAni.animation == "swing":
 				spriteAni.play("walk")
 		elif !disableMovement:
 			velocity.x = 0
-			if is_on_floor():
+			if is_on_floor() and !spriteAni.animation == "swing":
 				spriteAni.play("default")
-				
+		
+		
 		move_and_slide()
 		#print(velocity)
 		#print($invinciblityFrames.time_left)
+		
 	else:
 		velocity.x = 0
-	print(swingHitbox.monitoring)
+		
 
 
 func _on_coyote_time_timeout() -> void:

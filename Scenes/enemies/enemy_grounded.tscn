@@ -1,43 +1,74 @@
 [gd_scene format=3 uid="uid://nuarfax4ue4t"]
 
 [ext_resource type="Script" uid="uid://dtlxju1tspt6a" path="res://scripts/enemyScripts/enemy_grounded_one.gd" id="1_4pmop"]
-[ext_resource type="Texture2D" uid="uid://igpcufy0t06" path="res://Sprites/playerSprites/old/playerCharacter.png" id="2_4pmop"]
+[ext_resource type="Texture2D" uid="uid://44lk548m6i5f" path="res://Sprites/enemySprites/Enemy.png" id="2_h3e7c"]
+[ext_resource type="Texture2D" uid="uid://cp2n1da3mmef5" path="res://Sprites/enemySprites/EnemyWalk-Sheet.png" id="3_23fff"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xlqtj"]
+atlas = ExtResource("3_23fff")
+region = Rect2(0, 0, 512, 1024)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kl0rf"]
+atlas = ExtResource("3_23fff")
+region = Rect2(512, 0, 512, 1024)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2qw5g"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_h3e7c")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xlqtj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kl0rf")
+}],
+"loop": 1,
+"name": &"walk",
+"speed": 2.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h3e7c"]
 resource_local_to_scene = true
-size = Vector2(19.229149, 17.556595)
+size = Vector2(23.238865, 22.958622)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4pmop"]
-size = Vector2(18, 18)
+size = Vector2(23.009716, 23.099293)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2qw5g"]
-radius = 17.029387
+radius = 14.30491
 
 [sub_resource type="Animation" id="Animation_4pmop"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:flip_h")
+tracks/0/path = NodePath("playerDetect:target_position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
+"update": 0,
+"values": [Vector2(75, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("playerDetect:target_position")
+tracks/1/path = NodePath("AnimatedSprite2D:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(75, 0)]
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_h3e7c"]
@@ -58,7 +89,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:flip_h")
+tracks/1/path = NodePath("AnimatedSprite2D:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -74,26 +105,26 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:flip_h")
+tracks/0/path = NodePath("playerDetect:target_position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
+"update": 0,
+"values": [Vector2(75, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("playerDetect:target_position")
+tracks/1/path = NodePath("AnimatedSprite2D:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
+"times": PackedFloat32Array(0.0009999999),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(75, 0)]
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xlqtj"]
@@ -108,13 +139,14 @@ scale = Vector2(1.5, 1.5)
 collision_layer = 2
 script = ExtResource("1_4pmop")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1512426525]
-position = Vector2(-0.3733333, -9.413334)
-scale = Vector2(0.155, 0.155)
-texture = ExtResource("2_4pmop")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=876016468]
+position = Vector2(-0.666667, -13.333331)
+scale = Vector2(0.030208334, 0.030208334)
+sprite_frames = SubResource("SpriteFrames_2qw5g")
+frame_progress = 0.08477812
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=479637866]
-position = Vector2(-0.52813005, -9.333335)
+position = Vector2(-1.3333334, -12)
 scale = Vector2(0.401626, 0.9872834)
 shape = SubResource("RectangleShape2D_h3e7c")
 
@@ -124,7 +156,8 @@ collision_layer = 0
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=799674601]
-scale = Vector2(0.401626, 0.98728335)
+position = Vector2(-1.0060161, -2.5172234)
+scale = Vector2(0.401626, 0.9872834)
 shape = SubResource("RectangleShape2D_4pmop")
 
 [node name="invuln" type="Timer" parent="." unique_id=397951845]
@@ -143,6 +176,8 @@ collision_layer = 0
 collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="playerNear" unique_id=280675003]
+position = Vector2(-0.3844825, -16.952715)
+scale = Vector2(1.0754281, 2.4322896)
 shape = SubResource("CircleShape2D_2qw5g")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=533916584]
@@ -162,7 +197,7 @@ position = Vector2(-6.6666665, -0.6666667)
 target_position = Vector2(0, 5)
 
 [node name="lostPlayer" type="Timer" parent="." unique_id=1935253050]
-wait_time = 5.0
+wait_time = 10.0
 one_shot = true
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
