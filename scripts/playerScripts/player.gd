@@ -30,8 +30,6 @@ func _input(event: InputEvent) -> void:
 		aniPlayer.play("swingSword")
 		spriteAni.play("swing")
 		swing.emit(true)
-		if spriteAni.animation_finished:
-			spriteAni.play("default")
 	
 	#this is for switching the side you are swinging on
 	if Input.is_action_just_pressed("Left"):

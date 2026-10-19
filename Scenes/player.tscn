@@ -10,7 +10,7 @@
 [ext_resource type="Script" uid="uid://d310h2ehu6f4x" path="res://scripts/playerScripts/health.gd" id="7_8erm5"]
 [ext_resource type="Texture2D" uid="uid://ymmvxiusf6bh" path="res://Sprites/playerSprites/playerSwing-Sheet.png" id="7_ukyrk"]
 [ext_resource type="AudioStream" uid="uid://cpww1dw8ifs3x" path="res://SFX/break.mp3" id="9_f1ek2"]
-[ext_resource type="Texture2D" uid="uid://c6o8l5h5plttw" path="res://Sprites/playerSprites/healthFlask.png" id="10_tx1dd"]
+[ext_resource type="Texture2D" uid="uid://0avv427g50y4" path="res://Sprites/playerSprites/flask.png" id="11_gymyn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fkybt"]
 size = Vector2(15, 40)
@@ -77,6 +77,54 @@ tracks/4/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("AnimatedSprite2D:animation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"swing"]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("AnimatedSprite2D:frame")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("swingBox/AnimatedSprite2D:frame")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("swingBox/AnimatedSprite2D:animation")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"default"]
+}
 
 [sub_resource type="Animation" id="Animation_6t5aa"]
 resource_name = "swingSword"
@@ -88,7 +136,7 @@ tracks/0/path = NodePath("swingBox:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.03333333),
+"times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -100,10 +148,58 @@ tracks/1/path = NodePath("swingBox:monitoring")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.0667),
+"times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:animation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [&"swing", &"default"]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimatedSprite2D:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.02, 0.04, 0.06, 0.08),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 4]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("swingBox/AnimatedSprite2D:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.04, 0.06, 0.08),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("swingBox/AnimatedSprite2D:animation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [&"slash", &"default"]
 }
 
 [sub_resource type="Animation" id="Animation_vgqql"]
@@ -210,6 +306,11 @@ region = Rect2(1024, 0, 512, 512)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_natlx"]
 animations = [{
+"frames": [],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_fd4e3")
@@ -355,18 +456,14 @@ shape = SubResource("RectangleShape2D_2qw5g")
 position = Vector2(1.9736842, 0)
 scale = Vector2(0.05, 0.05)
 sprite_frames = SubResource("SpriteFrames_natlx")
-animation = &"slash"
-frame = 2
-frame_progress = 1.0
 flip_h = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1992023396]
-position = Vector2(-1.4210855e-14, -2.3841858e-07)
+position = Vector2(0, -2.3841858e-07)
 scale = Vector2(0.05, 0.05)
 sprite_frames = SubResource("SpriteFrames_2qw5g")
 animation = &"swing"
-frame = 4
-frame_progress = 1.0
+frame = 1
 
 [node name="coyoteTime" type="Timer" parent="." unique_id=1767994749]
 wait_time = 0.1
@@ -378,27 +475,27 @@ scale = Vector2(1.6580294, 1.6580294)
 script = ExtResource("7_8erm5")
 
 [node name="heart1" type="Sprite2D" parent="health" unique_id=2005968072]
-scale = Vector2(0.4, 0.4)
+scale = Vector2(0.05, 0.05)
 texture = ExtResource("7_3smsa")
 
 [node name="heart2" type="Sprite2D" parent="health" unique_id=1323535453]
 position = Vector2(15, 0)
-scale = Vector2(0.4, 0.4)
+scale = Vector2(0.05, 0.05)
 texture = ExtResource("7_3smsa")
 
 [node name="heart3" type="Sprite2D" parent="health" unique_id=29346827]
 position = Vector2(30, 0)
-scale = Vector2(0.4, 0.4)
+scale = Vector2(0.05, 0.05)
 texture = ExtResource("7_3smsa")
 
 [node name="heart4" type="Sprite2D" parent="health" unique_id=245310284]
 position = Vector2(45, 0)
-scale = Vector2(0.4, 0.4)
+scale = Vector2(0.05, 0.05)
 texture = ExtResource("7_3smsa")
 
 [node name="heart5" type="Sprite2D" parent="health" unique_id=596274019]
 position = Vector2(60, 0)
-scale = Vector2(0.4, 0.4)
+scale = Vector2(0.05, 0.05)
 texture = ExtResource("7_3smsa")
 
 [node name="disableMovement" type="Timer" parent="." unique_id=427838985]
@@ -431,10 +528,11 @@ text = "Game over :("
 layout_mode = 0
 offset_left = -126.05323
 offset_top = -53.07507
-offset_right = -62.05323
-offset_bottom = 10.924931
+offset_right = -73.84702
+offset_bottom = -0.86886215
 scale = Vector2(0.25416023, 0.25416023)
-texture = ExtResource("10_tx1dd")
+texture = ExtResource("11_gymyn")
+expand_mode = 1
 
 [node name="Label" type="Label" parent="Control/TextureRect" unique_id=217618463]
 layout_mode = 0

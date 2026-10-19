@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c6o8l5h5plttw"
-path="res://.godot/imported/healthFlask.png-470b8d5ab315e31da7def1c96315c880.ctex"
+uid="uid://0avv427g50y4"
+path="res://.godot/imported/flask.png-92df1a2c9e548cb4ec0ba0ec0db708d8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/playerSprites/healthFlask.png"
-dest_files=["res://.godot/imported/healthFlask.png-470b8d5ab315e31da7def1c96315c880.ctex"]
+source_file="res://Sprites/playerSprites/flask.png"
+dest_files=["res://.godot/imported/flask.png-92df1a2c9e548cb4ec0ba0ec0db708d8.ctex"]
 
 [params]
 
